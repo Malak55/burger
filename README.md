@@ -19,7 +19,6 @@ https://serene-eyrie-62818.herokuapp.com/
 
 ```
 - Node.js - Download the latest version of Node https://nodejs.org/en/
-- Materialize - Add CDN link http://materializecss.com/getting-started.html
 ```
 
 ## Built With
