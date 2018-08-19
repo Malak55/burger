@@ -1,39 +1,68 @@
-var connection = require('./connection.js');
+var connection = require("../config/connection.js");
 
-var orm ={
-  selectAll: function(table, callback){
-    var queryString = 'SELECT * FROM ' + table;
+function printQuestionMarks(num) {
+  var arr = [];
 
-    connection.query(queryString, function(err, data){
-      if(err) throw err;
-      callback(data);
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
+
+  return arr.toString();
+}
+
+function objToSql(ob) {
+  var arr = [];
+
+  for (var key in ob) {
+    var value = ob[key];
+    // check hidden properties to skip
+    if (Object.hasOwnProperty.call(ob, key)) {
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+      arr.push(key + "=" + value);
+    }
+  }
+
+  // translate the array to a single comma-separated string
+  return arr.toString();
+}
+
+var orm = {
+  selectAll: function(tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function(err, result) {
+      if (err) { throw err; }
+      cb(result);
+    });
+  },
+  insertOne: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    connection.query(queryString, vals, function(err, result) {
+      if (err) { throw err; }
+      cb(result);
     });
   },
 
-  insertOne: function(table, column, burgerInput, callback){
-    var queryString = 'INSERT INTO ' + table + '(' + column + ') VALUES (?)';
+  updateOne: function(table, objColVals, condition, cb) {;
+    var queryString = "UPDATE " + table;
 
-    connection.query(queryString, [burgerInput], function(err, data){
-      if(err) throw err;
-      callback(data);
-    });
-  },
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
 
-  updateOne: function(table, col, colVal, condition, conditionVal, callback){
-    var queryString = 'UPDATE ' + table + ' SET ' + col + '=?' + 'WHERE ' + condition + '=?';
-
-    connection.query(queryString, [colVal, conditionVal], function(err, data){
-      if(err) throw err;
-      callback(data);
-    });
-  },
-
-  deleteOne: function(table, condition, conditionVal, callback){
-    var queryString = 'DELETE FROM ' + table + ' WHERE ' + condition + '=?';
-
-    connection.query(queryString, [conditionVal], function(err, data){
-      if(err) throw err;
-      callback(data);
+    connection.query(queryString, function(err, result) {
+      if (err) { throw err; }
+      cb(result);
     });
   }
 };
