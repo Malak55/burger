@@ -2,7 +2,7 @@
 
     <div class="jumbotron">
         <div id="burger-image">
-            <img src="/assets/images/eat-da-burger.jpg"></img>
+            <img src="/assets/img/burgersBG.png" ></img>
         </div>
         <h1>Eat-Da-Burger!</h1>
     </div>
@@ -15,8 +15,8 @@
             {{#each burgers}}
                 {{#unless devoured}}
                     <span class="border border-primary" id="burger-list">
-                        {{ id}}.
-                        {{  burger_name}}
+                        {{id}}.
+                        {{burger_name}}
                     </span>
                     <button class="devour-burger" data-id="{{this.id}}">Devour It!</button>
                     <br><br>
@@ -27,8 +27,8 @@
             {{#each burgers}}
                 {{#if devoured}}
                     <span class="border border-primary" id="burger-list">
-                        {{ id}}.
-                        {{  burger_name}}
+                        {{id}}.
+                        {{burger_name}}
                     </span>
                     <br><br>
                 {{/if}}
@@ -38,13 +38,12 @@
 
    
     <!-- Form for adding a new burger -->
- 
+    <h4 style="text-align: center">Enter a burger. Now hit the Submit button.</h4>
     <form class="create-form">
         <div class="form-group">
             <input type="text" class="form-control" id="new-burger" name="name"></input><br>
             <button type="submit" class="btn btn-primary addBurger">Submit</button><br>
             <br>
-            <h5>Enter a burger you want to eat. Now hit the Submit button.</h5>
         </div>
     </form>
 </div>
