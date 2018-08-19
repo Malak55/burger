@@ -23,7 +23,7 @@ https://serene-eyrie-62818.herokuapp.com/
 
 ## Built With
 
-* Materialize - Wireframe
+* VS Code
 * MySql Workbench
 
 ## Author
