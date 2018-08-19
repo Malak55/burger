@@ -2,12 +2,8 @@
 
 The Burger App uses the MVC design pattern, Node and MySQL to query and route data to the app and Handlebars to generate the HTML.
 
-## Getting Started
-x
-
-## Screen Shots
-
-x
+## Heroku Address
+https://serene-eyrie-62818.herokuapp.com/
 
 ## Technologies used
 - Node.js
@@ -31,6 +27,6 @@ x
 * Materialize - Wireframe
 * MySql Workbench
 
-## Authors
+## Author
 
 * Matt Schiereck
